@@ -1,5 +1,5 @@
 (function() {
-  const MAX_DANDELIONS = 90; // Kept your higher maximum
+  const MAX_DANDELIONS = 90; 
   let currentDandelions = 0;
 
   function createStars() {
@@ -7,7 +7,7 @@
       const star = document.createElement('div');
       star.className = 'star';
       star.style.left = `${Math.random() * 100}vw`;
-      star.style.top = `${Math.random() * 80}vh`; // Keep stars in sky area
+      star.style.top = `${Math.random() * 80}vh`; 
       star.style.animationDelay = `${Math.random() * 1}s`;
       document.body.appendChild(star);
     }
@@ -75,24 +75,24 @@
       </div>
     `;
     
-    // Random size but keep it reasonable
+    
     const size = 30 + Math.random() * 30;
     dandelion.style.width = `${size}vmin`;
     dandelion.style.height = `${size}vmin`;
     
-    // Random position but keep away from edges
+    
     const xPos = 5 + Math.random() * 90;
     dandelion.style.left = `${xPos}vw`;
     
-    // Set z-index based on position (flowers in back appear behind)
+    
     dandelion.style.zIndex = Math.floor(100 - size);
     
-    // Append to container instead of body for better positioning
+    
     const container = document.querySelector('.dandelion-container') || document.body;
     container.appendChild(dandelion);
     currentDandelions++;
     
-    // Make each dandelion clickable for seed release
+    
     dandelion.addEventListener('click', (e) => {
       releaseSeeds(dandelion);
       e.stopPropagation();
@@ -113,7 +113,7 @@
 
   function addNewDandelions() {
     if (currentDandelions < MAX_DANDELIONS) {
-      // Add two dandelions per click
+      
       createDandelion();
       createDandelion();
       createFirework();
@@ -121,40 +121,40 @@
   }
 
   function init() {
-    // Clear any existing elements
+   
     document.querySelectorAll('.star, .dandelion, .floating-seed, .firework, .ground').forEach(el => el.remove());
     currentDandelions = 0;
     
-    // Create container for dandelions if it doesn't exist
+    
     if (!document.querySelector('.dandelion-container')) {
       const container = document.createElement('div');
       container.className = 'dandelion-container';
       document.body.appendChild(container);
     }
     
-    // Create ground first
+    
     createGround();
     
-    // Create stars
+    
     createStars();
     
-    // Create single initial dandelion
+    
     createDandelion();
     
-    // Setup click handler for adding new dandelions
+    
     document.body.addEventListener('click', (e) => {
       if (e.target === document.body && currentDandelions < MAX_DANDELIONS) {
         addNewDandelions();
       }
     });
     
-    // Add automatic fireworks
+  
     setInterval(createFirework, 3000);
   }
 
-  // Initialize everything
+ 
   window.addEventListener('load', init);
-  // Also reinitialize if the page is shown again (fixes some mobile browser issues)
+  
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
       init();
