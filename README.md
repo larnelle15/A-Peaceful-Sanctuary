@@ -4,3 +4,4 @@ i just picked up called SCSS. Hope you enjoy!
 
 
 
+<img width="1440" alt="Screen Shot 2024-11-10 at 11 15 43 PM" src="https://github.com/user-attachments/assets/4d5f6242-6a9b-466f-b106-fd1c38f390c0">
