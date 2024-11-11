@@ -1,16 +1,60 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat+Alternates");
+
 html {
-  height: 200vh;
-  background: radial-gradient(ellipse at center, #dbb800 0%, #688acc 50%);
+  height: 100vh; /* Changed from 200vh */
+  background: linear-gradient(180deg, #000000 0%, #111122 100%);
   cursor: pointer;
+  overflow: hidden; /* Changed from overflow-x */
 }
 
 body {
   height: 100vh;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  border-bottom: 10vh #339545 solid;
-  box-sizing: border-box;
   position: relative;
+}
+
+/* Water and vegetation ground effect */
+.ground {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15vh;
+  background: linear-gradient(180deg, #0b3c5d 0%, #1d4a3e 100%);
+  z-index: 1;
+}
+
+.water {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    rgba(11, 60, 93, 0.8) 0%,
+    rgba(29, 74, 62, 0.6) 100%
+  );
+  animation: water-move 3s ease-in-out infinite alternate;
+}
+
+.vegetation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(35, 100, 50, 0.4) 20%,
+    rgba(35, 100, 50, 0.8) 100%
+  );
+}
+
+@keyframes water-move {
+  0% { transform: translateY(-2px); }
+  100% { transform: translateY(2px); }
 }
 
 h1 {
@@ -18,160 +62,206 @@ h1 {
   color: white;
   font-family: "Montserrat Alternates", sans-serif;
   font-size: 40px;
-  position: absolute;
-  z-index: 1;
+  position: fixed;
+  z-index: 5;
   width: 100%;
-  top: 0vh;
-  transform: translate(0, 100vh);
-  animation: move 1s 2.5s forwards;
+  top: 20px;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  animation: fadeIn 1s 2.5s forwards;
+  opacity: 0;
 }
 
-@keyframes move {
-  0% {
-    transform: translate(0, 100vh);
-  }
-  100% {
-    transform: translate(0vh, 0);
-  }
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
-.sunflwr {
+
+/* Container for all dandelions */
+.dandelion-container {
+  position: fixed;
+  bottom: 15vh;
+  left: 0;
+  right: 0;
+  height: calc(85vh - 20px);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dandelion {
   width: 80vmin;
   height: 80vmin;
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  bottom: 15vh;
   left: 50%;
   transform: translate(-50%, 0%);
-}
-.sunflwr__leaf--left, .sunflwr__leaf--right {
-  width: 0%;
-  height: 20%;
-  border-radius: 0% 50% 0% 50%;
-  position: absolute;
-  background: #6f8e4b;
-  top: 70%;
-  left: 45%;
-  transform: translate(-100%, -50%) rotate(-20deg);
-  animation: sunflwr__leaf forwards 1s 0.5s;
-}
-.sunflwr__leaf--right {
-  top: 80%;
-  left: 55%;
-  transform: translate(0%, -50%) rotate(-70deg);
-}
-@keyframes sunflwr__leaf {
-  0% {
-    width: 0%;
-    border: 0px solid black;
-  }
-  100% {
-    width: 20%;
-    border: 2px solid black;
-  }
-}
-.sunflwr__stem {
-  position: absolute;
-  transform: translate(-50%, 0%);
-  width: 5%;
-  height: 60%;
-  background: #556d39;
-  left: 50%;
-  bottom: 0%;
-  border: 2px solid black;
-  animation: sunflwr__stem forwards 1s;
-}
-@keyframes sunflwr__stem {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: 60%;
-  }
-}
-.sunflwr__center {
-  border-radius: 50%;
-  background-color: #3c1f03;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  left: 50%;
-  top: 40%;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
   z-index: 2;
-  animation: sunflwr__center 1s 1s forwards;
+  pointer-events: auto;
+  animation: wave 3s ease-in-out infinite;
 }
-@keyframes sunflwr__center {
-  0% {
-    width: 0%;
-    height: 0%;
-  }
-  100% {
-    width: 25%;
-    height: 25%;
-  }
-}
-.sunflwr__pedal--1, .sunflwr__pedal--7, .sunflwr__pedal--12, .sunflwr__pedal--11, .sunflwr__pedal--10, .sunflwr__pedal--9, .sunflwr__pedal--8, .sunflwr__pedal--6, .sunflwr__pedal--5, .sunflwr__pedal--4, .sunflwr__pedal--3, .sunflwr__pedal--2 {
-  border-radius: 50%;
-  background: #f2fe00;
-  transform: translate(-50%, -50%);
+
+.stem {
   position: absolute;
+  width: 4px;
+  height: 0;
+  background: #597d35;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  animation: grow-stem 1s forwards;
+}
+
+@keyframes grow-stem {
+  to { height: 60%; }
+}
+
+.flower-center {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #f0f0f0;
+  border-radius: 50%;
   left: 50%;
   top: 40%;
-  animation: grow-pedal-back 1s 1.5s forwards;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  animation: appear 0.5s 1s forwards;
 }
-.sunflwr__pedal--2 {
-  transform: translate(-50%, -50%) rotate(30deg);
+
+.seeds-container {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  animation: appear 0.5s 1.5s forwards;
+  opacity: 0;
 }
-.sunflwr__pedal--3 {
-  transform: translate(-50%, -50%) rotate(60deg);
+
+.seed {
+  position: absolute;
+  width: 3px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform-origin: bottom;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
-.sunflwr__pedal--4 {
-  transform: translate(-50%, -50%) rotate(90deg);
+
+/* Position seeds in a circle */
+.seed:nth-child(1) { transform: rotate(0deg) translateY(-40px); }
+.seed:nth-child(2) { transform: rotate(18deg) translateY(-40px); }
+.seed:nth-child(3) { transform: rotate(36deg) translateY(-40px); }
+.seed:nth-child(4) { transform: rotate(54deg) translateY(-40px); }
+.seed:nth-child(5) { transform: rotate(72deg) translateY(-40px); }
+.seed:nth-child(6) { transform: rotate(90deg) translateY(-40px); }
+.seed:nth-child(7) { transform: rotate(108deg) translateY(-40px); }
+.seed:nth-child(8) { transform: rotate(126deg) translateY(-40px); }
+.seed:nth-child(9) { transform: rotate(144deg) translateY(-40px); }
+.seed:nth-child(10) { transform: rotate(162deg) translateY(-40px); }
+.seed:nth-child(11) { transform: rotate(180deg) translateY(-40px); }
+.seed:nth-child(12) { transform: rotate(198deg) translateY(-40px); }
+.seed:nth-child(13) { transform: rotate(216deg) translateY(-40px); }
+.seed:nth-child(14) { transform: rotate(234deg) translateY(-40px); }
+.seed:nth-child(15) { transform: rotate(252deg) translateY(-40px); }
+.seed:nth-child(16) { transform: rotate(270deg) translateY(-40px); }
+.seed:nth-child(17) { transform: rotate(288deg) translateY(-40px); }
+.seed:nth-child(18) { transform: rotate(306deg) translateY(-40px); }
+.seed:nth-child(19) { transform: rotate(324deg) translateY(-40px); }
+.seed:nth-child(20) { transform: rotate(342deg) translateY(-40px); }
+
+@keyframes appear {
+  to { opacity: 1; }
 }
-.sunflwr__pedal--5 {
-  transform: translate(-50%, -50%) rotate(120deg);
+
+.floating-seed {
+  position: fixed;
+  width: 3px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  animation: float 8s linear forwards;
+  z-index: 4;
 }
-.sunflwr__pedal--6 {
-  transform: translate(-50%, -50%) rotate(150deg);
-}
-@keyframes grow-pedal-back {
+
+@keyframes float {
   0% {
-    width: 0%;
-    height: 0%;
-    border: 0px solid black;
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
   }
   100% {
-    width: 15%;
-    height: 45%;
-    border: 2px solid black;
+    transform: translate(var(--tx), var(--ty)) rotate(360deg);
+    opacity: 0;
   }
 }
-.sunflwr__pedal--7, .sunflwr__pedal--12, .sunflwr__pedal--11, .sunflwr__pedal--10, .sunflwr__pedal--9, .sunflwr__pedal--8 {
-  border-radius: 20% 50% 20% 50%;
-  transform: translate(-50%, -50%) rotate(15deg);
-  animation: grow-pedal-front 1s 2s forwards;
+
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 1s infinite alternate;
+  z-index: 0;
 }
-.sunflwr__pedal--8 {
-  transform: translate(-50%, -50%) rotate(45deg);
+
+@keyframes twinkle {
+  0% { opacity: 0.2; }
+  100% { opacity: 1; }
 }
-.sunflwr__pedal--9 {
-  transform: translate(-50%, -50%) rotate(75deg);
+
+.firework {
+  position: fixed;
+  pointer-events: none;
+  z-index: 3;
 }
-.sunflwr__pedal--10 {
-  transform: translate(-50%, -50%) rotate(105deg);
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: particle 1s ease-out forwards;
+  box-shadow: 0 0 6px currentColor;
 }
-.sunflwr__pedal--11 {
-  transform: translate(-50%, -50%) rotate(135deg);
-}
-.sunflwr__pedal--12 {
-  transform: translate(-50%, -50%) rotate(165deg);
-}
-@keyframes grow-pedal-front {
+
+@keyframes particle {
   0% {
-    height: 0%;
-    width: 0%;
-    border: 0px solid black;
+    transform: translate(0, 0);
+    opacity: 1;
   }
   100% {
-    height: 35%;
-    width: 10%;
-    border: 2px solid black;
+    transform: translate(var(--tx), var(--ty));
+    opacity: 0;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+
+/* Reflection effect for dandelions */
+.dandelion::after {
+  content: '';
+  position: absolute;
+  bottom: -15vh;
+  left: 0;
+  right: 0;
+  height: 15vh;
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 60%
+  );
+  transform: scaleY(-1);
+  opacity: 0.3;
+  filter: blur(2px);
+}
+
+/* Add slight wave movement to dandelions */
+@keyframes wave {
+  0% { transform: translate(-50%, 0) rotate(0deg); }
+  50% { transform: translate(-50%, 0) rotate(2deg); }
+  100% { transform: translate(-50%, 0) rotate(0deg); }
+}
