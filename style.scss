@@ -2,14 +2,14 @@
 
 html {
   height: 200vh;
-  background: radial-gradient(ellipse at center, #dbb800 0%, #688acc 50%);
+  background: radial-gradient(ellipse at center, #ff99cc 0%, #80bfff 50%);
   cursor: pointer;
 }
 
 body {
   height: 100vh;
   overflow: hidden;
-  border-bottom: 10vh #339545 solid;
+  border-bottom: 10vh #cc99ff solid;
   box-sizing: border-box;
   position: relative;
 }
@@ -49,7 +49,7 @@ h1 {
     height: 20%;
     border-radius: 0% 50% 0% 50%;
     position: absolute;
-    background: lighten(#556d39, 10%);
+    background: #b3d9ff;
     top: 70%;
     left: 45%;
     transform: translate(-100%, -50%) rotate(-20deg);
@@ -79,7 +79,7 @@ h1 {
     transform: translate(-50%, 0%);
     width: 5%;
     height: 60%;
-    background: #556d39;
+    background: #99ccff;
     left: 50%;
     bottom: 0%;
     border: 2px solid black;
@@ -96,10 +96,8 @@ h1 {
   }
 
   &__center {
-    // width: 30%;
-    // height: 30%;
     border-radius: 50%;
-    background-color: #3c1f03;
+    background-color: #ff80bf;
     transform: translate(-50%, -50%);
     position: absolute;
     left: 50%;
@@ -120,15 +118,12 @@ h1 {
   }
 
   &__pedal--1 {
-    // width: 15%;
-    // height: 50%;
     border-radius: 50%;
-    background: #f2fe00;
+    background: #ff99cc;
     transform: translate(-50%, -50%);
     position: absolute;
     left: 50%;
     top: 40%;
-    // border: 2px solid black;
     animation: grow-pedal-back 1s 1.5s forwards;
   }
 
@@ -169,8 +164,6 @@ h1 {
 
   &__pedal--7 {
     @extend .sunflwr__pedal--1;
-    // height: 40%;
-    // width: 10%;
     border-radius: 20% 50% 20% 50%;
     transform: translate(-50%, -50%) rotate(15deg);
     animation: grow-pedal-front 1s 2s forwards;
@@ -195,6 +188,7 @@ h1 {
     @extend .sunflwr__pedal--7;
     transform: translate(-50%, -50%) rotate(165deg);
   }
+  
   @keyframes grow-pedal-front {
     0% {
       height: 0%;
@@ -206,5 +200,31 @@ h1 {
       width: 10%;
       border: 2px solid black;
     }
+  }
+}
+
+// Fireworks styles
+.firework {
+  position: fixed;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: particle 1s ease-out forwards;
+}
+
+@keyframes particle {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty));
+    opacity: 0;
   }
 }
