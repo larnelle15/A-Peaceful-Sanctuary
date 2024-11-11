@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat+Alternates");
 
 html {
-  height: 100vh; /* Changed from 200vh */
+  height: 100vh; 
   background: linear-gradient(180deg, #000000 0%, #111122 100%);
   cursor: pointer;
-  overflow: hidden; /* Changed from overflow-x */
+  overflow: hidden; 
 }
 
 body {
@@ -15,7 +15,7 @@ body {
   position: relative;
 }
 
-/* Water and vegetation ground effect */
+
 .ground {
   position: fixed;
   bottom: 0;
@@ -77,7 +77,7 @@ h1 {
   100% { opacity: 1; }
 }
 
-/* Container for all dandelions */
+
 .dandelion-container {
   position: fixed;
   bottom: 15vh;
@@ -153,7 +153,7 @@ h1 {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
 
-/* Position seeds in a circle */
+
 .seed:nth-child(1) { transform: rotate(0deg) translateY(-40px); }
 .seed:nth-child(2) { transform: rotate(18deg) translateY(-40px); }
 .seed:nth-child(3) { transform: rotate(36deg) translateY(-40px); }
@@ -242,7 +242,7 @@ h1 {
   }
 }
 
-/* Reflection effect for dandelions */
+
 .dandelion::after {
   content: '';
   position: absolute;
@@ -259,7 +259,7 @@ h1 {
   filter: blur(2px);
 }
 
-/* Add slight wave movement to dandelions */
+
 @keyframes wave {
   0% { transform: translate(-50%, 0) rotate(0deg); }
   50% { transform: translate(-50%, 0) rotate(2deg); }
